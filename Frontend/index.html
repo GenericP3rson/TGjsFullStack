@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+    <div class="jumbotron text-center">
+        <h1>Welcome to a TigerGraph.js Test!</h1>
+        <p>We're using Bootstrap, TG.js, and Express</p>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <h3>Welcome to TigerGraph.js</h3>
+                <p>We integrate TigerGraph into our browsers!</p>
+            </div>
+            <div class="col-sm-4">
+                <h3>Try Making a Query:</h3>
+                <label for="fname">Patient ID:</label>
+                <input type="text" id="id" name="fname" id = "fname"><br><br>
+                <button type="submit" value="Submit" id = "sub">Submit</button>
+            </div>
+            <div class="col-sm-4">
+                <h3>You'll See Your Output Here</h3>
+                <p id = "output"></p>
+            </div>
+        </div>
+    </div>
+
+    
+
+</body>
+
+<script>
+    document.getElementById("sub").addEventListener("click", () => {
+        console.log("Clicked");
+        let fname = document.getElementById("id").value;
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.open("GET", "/make_query", true);
+        xhttp.setRequestHeader("param", fname);
+
+        xhttp.onreadystatechange = function () {
+            console.log(this.readyState);
+            if (this.readyState == 4 && this.status == 200) {
+                console.log("Success!");
+                document.getElementById("output").innerHTML = xhttp.responseText;
+            }
+        };
+        xhttp.send();
+
+    })
+</script>
+
+</html>
